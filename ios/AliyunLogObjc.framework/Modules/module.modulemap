@@ -1,0 +1,6 @@
+framework module AliyunLogObjc {
+  umbrella header "AliyunLogObjc.h"
+
+  export *
+  module * { export * }
+}
