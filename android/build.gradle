@@ -1,20 +1,33 @@
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.3.1'
+    }
+}
+
+
 apply plugin: 'com.android.library'
 
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
-
-
+    compileSdkVersion safeExtGet("compileSdkVersion", 25)
+    buildToolsVersion safeExtGet("buildToolsVersion", '25.0.2')
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion safeExtGet('minSdkVersion', 16)
+        targetSdkVersion safeExtGet('targetSdkVersion', 25)
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
     }
-
+    
     buildTypes {
         release {
             minifyEnabled false
@@ -26,7 +39,6 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:26.1.0'
     compile 'com.facebook.react:react-native:+'
     compile 'com.aliyun.openservices:aliyun-log-android-sdk:0.4.0'
     testCompile 'junit:junit:4.12'
